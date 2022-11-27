@@ -8,6 +8,7 @@ Automated using CRON
 > `git clone https://github.com/Cpt-Dingus/fail2ban-sshd-permaban && cd fail2ban-sshd-permaban`
 
 2. Optional config
+
 Open main.py with nano (or another editor), set `permaban` to the amount of bans that should trigger a permaban [Default is 3]
 
 3. Set up a CRON schedule for main.py
