@@ -1,6 +1,6 @@
 # Fail2ban-sshd-permaban
-- Permabans an IP from accesing your SSH server after X bans from [Fail2Ban](https://github.com/fail2ban/fail2ban) by adding it to /etc/hosts.deny
-- Uses Python and a bash script
+- Permanently bans an IP from accesing your SSH server after X bans from [Fail2Ban](https://github.com/fail2ban/fail2ban) by adding it to /etc/hosts.deny
+- Uses Python coupled with a bash script
 - Can be automated using CRON
 
 ## Setup
