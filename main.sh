@@ -15,8 +15,8 @@ done
 
 
 # Cleans up temp file
-if [ "$mode" = "cleanup" ];then
-	#sudo rm -rf /tmp/ips.json
+if [ "$mode" = "cleanup" ]; then
+	sudo rm -rf /tmp/ips.json
 	echo "SH: Removed ips.json"
 	exit 0
 fi
