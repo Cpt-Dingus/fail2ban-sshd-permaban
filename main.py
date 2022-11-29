@@ -1,11 +1,11 @@
 # Made by Cpt-Dingus
-# v1.1 - 29.11.2022
+# v1.2 - 29.11.2022
 
 
 # -- Config --
 
 # Amount of bans before a permaban [Default = 3]
-permaban = 3
+ban_trigger = 3
 
 
 # -- Imports --
@@ -48,7 +48,7 @@ for ip in ip_list:
 # Add IP to hosts.deny if the file isn't there already
 for ip in ip_dict:
 
-    if ip_dict[f'{ip}'] > 3 and ip not in banned_ips:
+    if ip_dict[f'{ip}'] > ban_trigger and ip not in banned_ips:
         print(f"PY: Calling append of {ip}")
         os.system(f'sudo {os.path.join(work_dir, "main.sh")} -m append -i {ip}')
 
