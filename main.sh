@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Made by Cpt-Dingus
-# v1.0 - 27.11.2022
+# v1.1 - 29.11.2022
 
 
 # -- CLI args --
@@ -16,19 +16,21 @@ done
 
 # Cleans up temp file
 if [ "$mode" = "cleanup" ];then
-	sudo rm -rf ./ips.json
+	#sudo rm -rf /tmp/ips.json
+	echo "SH: Removed ips.json"
 	exit 0
 fi
 
 # Appends IP to hosts.deny if script is done already
 if [ "$mode" = "append" ]; then
 	sudo echo "sshd: $ip" >> /etc/hosts.deny
+	echo "SH: Appended $ip to hosts.deny"
 	exit 0
 fi
 
 # Makes sure proper mode is selected
 if [ "$mode" != "load" ]; then
-	echo "Wrong/no mode flag detected! Please run this script with -m load to push IPs to a JSON, -m append to append an -i ip to hosts.deny, or -m cleanup to clean up the temporary JSON"
+	echo "SH: Wrong/no mode flag detected! Please run this script with -m load to push IPs to a JSON, -m append to append an -i ip to hosts.deny, or -m cleanup to clean up the temporary JSON"
 	exit 1
 fi
 
@@ -82,6 +84,8 @@ done
 
 # -- Writing to temporary JSON --
 
-rm -rf ./ips.json  # Removes previous instance
-echo "{\"Fail2ban-ips\":\"$ip_list\",\"Permabanned-ips\":\"$banned_list\"}" > ./ips.json
+rm -rf /tmp/ips.json  # Removes previous instance
+echo "SH: Cleaned up old ips.json"
 
+echo "{\"Fail2ban-ips\":\"$ip_list\",\"Permabanned-ips\":\"$banned_list\"}" > /tmp/ips.json
+echo "SH: Made new ips.json in /tmp"

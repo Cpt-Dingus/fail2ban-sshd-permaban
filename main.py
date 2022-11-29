@@ -1,5 +1,5 @@
 # Made by Cpt-Dingus
-# v1.0 - 27.11.2022
+# v1.1 - 29.11.2022
 
 
 # -- Config --
@@ -13,18 +13,25 @@ permaban = 3
 import os
 import json
 
-# Pulls IPs via a bash script, as python cannot directly run sudo commands
-os.system("sudo ./main.sh -m load")
-
 
 # -- Vars --
 
+work_dir = os.path.dirname(os.path.realpath(__file__))  
+ip_dict = {}
+
+
+# -- Startup --
+
+# Pulls IPs via a bash script, as python cannot directly run sudo commands
+print("PY: Calling load")
+os.system(f'sudo {os.path.join(work_dir, "main.sh")} -m load')
+
+
 # Loading JSON
-ips_json = json.load(open("ips.json", "r"))
+ips_json = json.load(open("/tmp/ips.json", "r"))
 ip_list = ips_json['Fail2ban-ips'].split()
 banned_ips = ips_json['Permabanned-ips'].split()
 
-ip_dict = {}
 
 
 # -- Main --
@@ -42,8 +49,11 @@ for ip in ip_list:
 for ip in ip_dict:
 
     if ip_dict[f'{ip}'] > 3 and ip not in banned_ips:
-        os.system(f"sudo ./main.sh -m append -i {ip}")
+        print(f"PY: Calling append of {ip}")
+        os.system(f'sudo {os.path.join(work_dir, "main.sh")} -m append -i {ip}')
 
 
-# Cleanup
-os.system("sudo ./main.sh -m cleanup")
+# -- Cleanup --
+
+print("PY: Calling cleanup")
+os.system(f'sudo {os.path.join(work_dir, "main.sh")} -m cleanup')
