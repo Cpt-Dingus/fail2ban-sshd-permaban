@@ -1,6 +1,6 @@
 # Fail2ban-sshd-permaban
-- Permabans an IP from accesing your SSH server after X bans from [Fail2Ban](https://github.com/fail2ban/fail2ban) by adding it to /etc/hosts.deny
-- Uses Python and a bash script
+- Permanently bans an IP from accesing your SSH server after X bans from [Fail2Ban](https://github.com/fail2ban/fail2ban) by adding it to /etc/hosts.deny
+- Uses Python coupled with a bash script
 - Can be automated using CRON
 
 ## Setup
@@ -12,10 +12,12 @@
 
 Open main.py with nano (or another editor), set the `permaban` value to the amount of bans that should trigger a permaban [Default is 3]
 
-3. Set up a CRON schedule for main.py
+3. Run `main.py` as root
+
+4. To automate, set up a CRON schedule for main.py
 
 Example: Hourly check
 
 > `crontab –e`
 
-> `0 * * * * python /path/to/script/main.py`
+> `0 * * * * python3 /path/to/script/main.py`
