@@ -40,7 +40,7 @@ fi
 # Get list of banned IPs
 raw_list=$(sudo zgrep 'Ban' /var/log/fail2ban.log)
 
-# Get already permabanned iIPs
+# Get already permabanned IPs
 raw_banned_list=$(sudo zgrep 'sshd' /etc/hosts.deny)
 
 prev_ban="False"
