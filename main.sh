@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Made by Cpt-Dingus
-# v1.2 - 29.11.2022
+# v1.2.1 - 30.11.2022
 
 
 # -- CLI args --

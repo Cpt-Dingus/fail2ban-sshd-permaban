@@ -1,5 +1,5 @@
 # Made by Cpt-Dingus
-# v1.2 - 29.11.2022
+# v1.2.1 - 30.11.2022
 
 
 # -- Config --
@@ -12,7 +12,7 @@ ban_trigger = 3
 
 import os
 import json
-
+import datetime
 
 # -- Vars --
 
@@ -20,7 +20,11 @@ work_dir = os.path.dirname(os.path.realpath(__file__))
 ip_dict = {}
 
 
+
 # -- Startup --
+
+print('PY: Script started at {datetime.now.strftime("%m/%d/%Y, %H:%M:%S")}')
+
 
 # Pulls IPs via a bash script, as python cannot directly run sudo commands
 print("PY: Calling load")
