@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Made by Cpt-Dingus
-# v1.2.1 - 30.11.2022
+# v1.2.2 - 04.12.2022
 
 
 # -- CLI args --
@@ -42,6 +42,10 @@ raw_list=$(sudo zgrep 'Ban' /var/log/fail2ban.log)
 
 # Get already permabanned IPs
 raw_banned_list=$(sudo zgrep 'sshd' /etc/hosts.deny)
+
+# Raw list of unable to negotiate with IPs (has to be parsed with PY)
+raw_UNW_list=$(sudo zgrep 'unable to negotiate with' /var/log/auth.log | tr : _ | tr -d '\n')
+
 
 prev_ban="False"
 prev_sshd="False"
@@ -84,8 +88,8 @@ done
 
 # -- Writing to temporary JSON --
 
-rm -rf /tmp/ips.json  # Removes previous instance
+#rm -rf /tmp/ips.json  # Removes previous instance
 echo "SH: Cleaned up old ips.json"
 
-echo "{\"Fail2ban-ips\":\"$ip_list\",\"Permabanned-ips\":\"$banned_list\"}" > /tmp/ips.json
+echo "{\"Fail2ban-ips\":\"$ip_list\",\"Permabanned-ips\":\"$banned_list\",\"UNW\":\"$raw_UNW_list\"}" > /tmp/ips.json
 echo "SH: Made new ips.json in /tmp"

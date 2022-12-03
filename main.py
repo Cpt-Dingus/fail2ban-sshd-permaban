@@ -1,5 +1,5 @@
 # Made by Cpt-Dingus
-# v1.2.1 - 30.11.2022
+# v1.2.2 - 04.12.2022
 
 
 # -- Config --
@@ -23,7 +23,7 @@ ip_dict = {}
 
 # -- Startup --
 
-print('PY: Script started at {datetime.now.strftime("%m/%d/%Y, %H:%M:%S")}')
+print(f'PY: Script started at {datetime.now.strftime("%m/%d/%Y, %H:%M:%S")}')
 
 
 # Pulls IPs via a bash script, as python cannot directly run sudo commands
