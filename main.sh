@@ -69,7 +69,7 @@ fi
 
 
 # Get already permabanned IPs
-raw_permabanned_list=$(sudo zgrep 'sshd' /etc/hosts.deny)
+raw_permabanned_list=$(sudo zgrep 'sshd' /etc/hosts.deny | tr : _  | tr : _ | sed ':a;N;$!ba;s/\n/ /g')
 
 prev_sshd="False"
 prev_ban="False"
@@ -84,7 +84,7 @@ raw_ban_list="Skipping"
 
 if [[ $depth =~ 0 || $depth = "4" ]]; then
 	# Raw list of IPs banned by fail2ban (Will get parsed by SH)
-	raw_ban_list=$(sudo zgrep 'Ban' /var/log/fail2ban.log)
+	raw_ban_list=$(sudo zgrep 'Ban' /var/log/fail2ban.log | sudo zgrep 'sshd' | tr : _ | sed ':a;N;$!ba;s/\n/ /g')
 fi
 
 
@@ -149,8 +149,7 @@ done
 
 
 
-# -- Writing to temporary JSON --
-
-echo "{\"Fail2ban-ips\":\"${ip_list[*]}\",\"Permabanned-ips\":\"${permabanned_list[*]}\",\"UNW\":\"$raw_UNW_list\",\"Root_list\":\"$raw_root_list\",\"Invalid_user_list\":\"$raw_invalid_user_list\"}" > /tmp/ips.json
+# -- Writing to temporary JSON
+echo "{\"Fail2ban-ips\":\"$raw_ban_list\",\"Permabanned-ips\":\"$raw_permabanned_list\",\"UNW\":\"$raw_UNW_list\",\"Root_list\":\"$raw_root_list\",\"Invalid_user_list\":\"$raw_invalid_user_list\"}" > /tmp/ips.json
 echo "SH: Made new ips.json in /tmp"
 
